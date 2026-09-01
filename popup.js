@@ -1,6 +1,6 @@
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const NUMBERS = "0123456789";
-const SETTINGS_KEY = "passwordGeneratorSettings";
+const LEGACY_SETTINGS_KEY = "passwordGeneratorSettings";
 
 const passwordInput = document.getElementById("password");
 const message = document.getElementById("message");
@@ -44,39 +44,8 @@ function selectedSymbols() {
     .join("");
 }
 
-function settings() {
-  return {
-    length: selectedLength(),
-    startWithLetter: startWithLetterInput.checked,
-    useNumbers: useNumbersInput.checked,
-    symbols: selectedSymbols()
-  };
-}
-
-function saveSettings() {
-  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings()));
-}
-
-function loadSettings() {
-  const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "null");
-  if (!saved) return;
-
-  const lengthInput = lengthInputs.find((input) => input.value === String(saved.length));
-  if (lengthInput) lengthInput.checked = true;
-
-  if (typeof saved.startWithLetter === "boolean") {
-    startWithLetterInput.checked = saved.startWithLetter;
-  }
-
-  if (typeof saved.useNumbers === "boolean") {
-    useNumbersInput.checked = saved.useNumbers;
-  }
-
-  if (typeof saved.symbols === "string") {
-    symbolInputs.forEach((input) => {
-      input.checked = saved.symbols.includes(input.value);
-    });
-  }
+function clearSavedOptions() {
+  localStorage.removeItem(LEGACY_SETTINGS_KEY);
 }
 
 function generatePassword() {
@@ -107,7 +76,6 @@ function generatePassword() {
 
   passwordInput.value = firstChar + shuffle(chars).join("");
   message.textContent = "";
-  saveSettings();
 }
 
 async function copyPassword() {
@@ -124,5 +92,5 @@ document.getElementById("copy").addEventListener("click", copyPassword);
   input.addEventListener("change", generatePassword);
 });
 
-loadSettings();
+clearSavedOptions();
 generatePassword();
