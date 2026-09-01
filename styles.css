@@ -13,6 +13,9 @@
   --soft-border: #e8edf3;
   --primary: #057a55;
   --primary-dark: #046c4e;
+  --danger: #c81e1e;
+  --danger-soft: #fff1f1;
+  --danger-border: #f1b8b8;
   --focus: rgba(5, 122, 85, 0.2);
 }
 
@@ -119,6 +122,15 @@ h1 {
   letter-spacing: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+#password.is-error {
+  border-color: var(--danger-border);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
 }
 
 .copy-button {
