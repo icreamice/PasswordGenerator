@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="generator-shell" aria-label="Password Generator">
+    <section class="generator-panel">
+      <div class="panel-header">
+        <h1>Password Generator</h1>
+        <button id="generate" class="refresh-button" type="button" aria-label="새 비밀번호 생성" title="새 비밀번호 생성">
+          <span aria-hidden="true">↻</span>
+        </button>
+      </div>
+
+      <label class="field-label" for="password">Your Random Password</label>
+      <div class="password-row">
+        <input id="password" type="text" readonly aria-live="polite" />
+        <button id="copy" class="copy-button" type="button">Copy</button>
+      </div>
+
+      <div class="options">
+        <fieldset class="option-block">
+          <legend class="option-title">Characters</legend>
+          <div class="length-options">
+            <label><input type="radio" name="length" value="8" checked /><span>8</span></label>
+            <label><input type="radio" name="length" value="10" /><span>10</span></label>
+            <label><input type="radio" name="length" value="12" /><span>12</span></label>
+          </div>
+        </fieldset>
+
+        <label class="switch-row">
+          <span>Start with Letter</span>
+          <input id="startWithLetter" type="checkbox" checked />
+        </label>
+
+        <label class="switch-row">
+          <span>Numbers</span>
+          <input id="useNumbers" type="checkbox" checked />
+        </label>
+
+        <fieldset class="option-block">
+          <legend class="option-title">Symbols</legend>
+          <div class="symbol-options">
+            <label><input type="checkbox" name="symbol" value="@" checked /><span>@</span></label>
+            <label><input type="checkbox" name="symbol" value="!" checked /><span>!</span></label>
+            <label><input type="checkbox" name="symbol" value="#" checked /><span>#</span></label>
+            <label><input type="checkbox" name="symbol" value="$" checked /><span>$</span></label>
+            <label><input type="checkbox" name="symbol" value="%" checked /><span>%</span></label>
+            <label><input type="checkbox" name="symbol" value="&amp;" checked /><span>&amp;</span></label>
+            <label><input type="checkbox" name="symbol" value="*" checked /><span>*</span></label>
+            <label><input type="checkbox" name="symbol" value="?" checked /><span>?</span></label>
+            <label><input type="checkbox" name="symbol" value="-" /><span>-</span></label>
+            <label><input type="checkbox" name="symbol" value="_" /><span>_</span></label>
+            <label><input type="checkbox" name="symbol" value="+" /><span>+</span></label>
+            <label><input type="checkbox" name="symbol" value="=" /><span>=</span></label>
+            <label><input type="checkbox" name="symbol" value="." /><span class="symbol-caution" title="Small or easy to miss">.</span></label>
+            <label><input type="checkbox" name="symbol" value="," /><span class="symbol-caution" title="Small or easy to miss">,</span></label>
+            <label><input type="checkbox" name="symbol" value=":" /><span class="symbol-caution" title="Small or easy to miss">:</span></label>
+            <label><input type="checkbox" name="symbol" value=";" /><span class="symbol-caution" title="Small or easy to miss">;</span></label>
+            <label><input type="checkbox" name="symbol" value="/" /><span class="symbol-caution" title="Can be hard to distinguish">/</span></label>
+            <label><input type="checkbox" name="symbol" value="(" /><span class="symbol-caution" title="Bracket symbol">(</span></label>
+            <label><input type="checkbox" name="symbol" value=")" /><span class="symbol-caution" title="Bracket symbol">)</span></label>
+            <label><input type="checkbox" name="symbol" value="[" /><span class="symbol-caution" title="Bracket symbol">[</span></label>
+            <label><input type="checkbox" name="symbol" value="]" /><span class="symbol-caution" title="Bracket symbol">]</span></label>
+            <label><input type="checkbox" name="symbol" value="{" /><span class="symbol-caution" title="Bracket symbol">{</span></label>
+            <label><input type="checkbox" name="symbol" value="}" /><span class="symbol-caution" title="Bracket symbol">}</span></label>
+            <label><input type="checkbox" name="symbol" value="&lt;" /><span class="symbol-caution" title="Can be hard to distinguish">&lt;</span></label>
+            <label><input type="checkbox" name="symbol" value="&gt;" /><span class="symbol-caution" title="Can be hard to distinguish">&gt;</span></label>
+            <label><input type="checkbox" name="symbol" value="|" /><span class="symbol-caution" title="Can be confused with I or l">|</span></label>
+            <label><input type="checkbox" name="symbol" value="^" /><span class="symbol-caution" title="Small or easy to miss">^</span></label>
+            <label><input type="checkbox" name="symbol" value="~" /><span class="symbol-caution" title="Small or easy to miss">~</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <p id="message" class="message" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>
