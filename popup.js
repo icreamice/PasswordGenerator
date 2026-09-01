@@ -1,6 +1,7 @@
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const NUMBERS = "0123456789";
 const LEGACY_SETTINGS_KEY = "passwordGeneratorSettings";
+const CHARACTER_ERROR = "Characters를 선택해주세요";
 
 const passwordInput = document.getElementById("password");
 const message = document.getElementById("message");
@@ -49,7 +50,17 @@ function clearSavedOptions() {
   localStorage.removeItem(LEGACY_SETTINGS_KEY);
 }
 
-function generatePassword() {
+function showCharacterError() {
+  passwordInput.value = CHARACTER_ERROR;
+  passwordInput.classList.add("is-error");
+  message.textContent = "";
+}
+
+function clearPasswordError() {
+  passwordInput.classList.remove("is-error");
+}
+
+function generatePassword({ showError = false } = {}) {
   const length = selectedLength();
   const symbols = selectedSymbols();
   const required = [];
@@ -57,10 +68,17 @@ function generatePassword() {
   let firstChar = "";
 
   if (!length) {
-    passwordInput.value = "";
-    message.textContent = "";
+    if (showError) {
+      showCharacterError();
+    } else {
+      passwordInput.value = "";
+      clearPasswordError();
+      message.textContent = "";
+    }
     return;
   }
+
+  clearPasswordError();
 
   if (startWithLetterInput.checked) {
     firstChar = pick(LETTERS);
@@ -86,18 +104,22 @@ function generatePassword() {
 }
 
 async function copyPassword() {
-  if (!passwordInput.value) generatePassword();
-  if (!passwordInput.value) return;
+  if (!passwordInput.value || passwordInput.classList.contains("is-error")) {
+    generatePassword({ showError: true });
+  }
+  if (!passwordInput.value || passwordInput.classList.contains("is-error")) return;
 
   await navigator.clipboard.writeText(passwordInput.value);
   message.textContent = "Copied.";
 }
 
-document.getElementById("generate").addEventListener("click", generatePassword);
+document.getElementById("generate").addEventListener("click", () => {
+  generatePassword({ showError: true });
+});
 document.getElementById("copy").addEventListener("click", copyPassword);
 
 [...lengthInputs, ...symbolInputs, startWithLetterInput, useNumbersInput].forEach((input) => {
-  input.addEventListener("change", generatePassword);
+  input.addEventListener("change", () => generatePassword());
 });
 
 clearSavedOptions();
