@@ -34,7 +34,8 @@ function shuffle(chars) {
 }
 
 function selectedLength() {
-  return Number(lengthInputs.find((input) => input.checked)?.value ?? 8);
+  const selected = lengthInputs.find((input) => input.checked);
+  return selected ? Number(selected.value) : null;
 }
 
 function selectedSymbols() {
@@ -54,6 +55,12 @@ function generatePassword() {
   const required = [];
   let pool = LETTERS;
   let firstChar = "";
+
+  if (!length) {
+    passwordInput.value = "";
+    message.textContent = "";
+    return;
+  }
 
   if (startWithLetterInput.checked) {
     firstChar = pick(LETTERS);
@@ -80,6 +87,7 @@ function generatePassword() {
 
 async function copyPassword() {
   if (!passwordInput.value) generatePassword();
+  if (!passwordInput.value) return;
 
   await navigator.clipboard.writeText(passwordInput.value);
   message.textContent = "Copied.";
