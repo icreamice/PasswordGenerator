@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Password Generator",
   "version": "1.0.0",
-  "description": "Random password generator with saved options, selectable numbers, symbols, and fixed character lengths.",
+  "description": "Random password generator with selectable numbers, symbols, and fixed character lengths.",
   "action": {
     "default_popup": "popup.html",
     "default_title": "Password Generator"
